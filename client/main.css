@@ -1,0 +1,15 @@
+/* CSS declarations go here */
+
+body {
+  margin: 0;
+  background-color: #e1bee7;
+}
+
+#react-root {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
