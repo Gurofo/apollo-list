@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { withStyles } from "material-ui/styles";
 
-const todos = [{ _id: 1, name: "Finish hemployeed" }];
+import Todo from "./Todo";
 
 const styles = theme => ({});
 
 class TodoList extends Component {
   render() {
-    return <h1>TodoList</h1>;
+    const { todos } = this.props;
+    return todos.map((todo, index) => <Todo key={index} todo={todo} />);
   }
 }
 

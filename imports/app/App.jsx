@@ -13,6 +13,7 @@ import purple from "material-ui/colors/purple";
 import lightGreen from "material-ui/colors/lightGreen";
 
 import TodoList from "../ui/components/todos/TodoList";
+import CreateTodo from "../ui/components/todos/CreateTodo";
 import Navigation from "../ui/components/navigation/Navigation";
 
 const httpLink = new HttpLink({
@@ -40,9 +41,11 @@ const styles = theme => ({
     background: "#ECEFF1"
   }
 });
+
 export default class App extends Component {
   state = {
-    formVisible: true
+    formVisible: true,
+    todos: ["Finish Hemployeed"]
   };
 
   handleToggleForm = () => {
@@ -53,16 +56,24 @@ export default class App extends Component {
     this.setState({ formVisible: !this.state.formVisible });
   };
 
+  handleCreateTodo = todo => {
+    this.setState({ todos: this.state.todos.concat(todo) });
+    this.toggleForm();
+  };
+
   render() {
-    const { formVisible } = this.state;
+    const { formVisible, todos } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
         <ApolloProvider client={client}>
-          <Grid container alignContent="flex-start" direction="column">
-            <Navigation toggleForm={this.handleToggleForm} />
-            {formVisible && <h1>TodoForm</h1>}
-            <TodoList />
-          </Grid>
+          <div>
+            <Navigation
+              toggleForm={this.handleToggleForm}
+              showButton={!formVisible}
+            />
+            {formVisible && <CreateTodo onCreateTodo={this.handleCreateTodo} />}
+            <TodoList todos={todos} />
+          </div>
         </ApolloProvider>
       </MuiThemeProvider>
     );
